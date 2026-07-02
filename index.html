@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Efatá Estética Navegantes - Especializada em pós-operatório, drenagem linfática, limpeza de pele e tratamentos estéticos. Recuperação mais rápida e confortável.">
+    <meta name="keywords" content="Efatá Estética, Navegantes, pós-operatório, drenagem linfática, limpeza de pele, estética">
+    <meta name="author" content="Efatá Studio Terapêutico">
+    <meta property="og:title" content="Efatá Estética | Pós-Operatório e Estética em Navegantes">
+    <meta property="og:description" content="Profissional especializada em estética e massoterapia. Recuperação mais rápida e confortável no pós-cirúrgico.">
+    <meta property="og:type" content="website">
+    <title>Efatá Estética | Pós-Operatório e Estética - Navegantes SC</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'premium-white': '#FAF9F7',
+                        'champagne': '#F3E5B3',
+z                        'gold-primary': '#C59A35',
+                        'gold-dark': '#9B7222',
+                        'bronze': '#765018',
+                    },
+                    fontFamily: {
+                        'playfair': ['Playfair Display', 'serif'],
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAF9F7;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #D9BE6B 0%, #C59A35 50%, #9B7222 100%);
+        }
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #D9BE6B 0%, #C59A35 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(197, 154, 53, 0.15);
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        [x-cloak] { display: none !important; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C59A35;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9B7222;
+        }
+
+        /* Service card image container */
+        .service-image-container {
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .service-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        
+        .group:hover .service-image-container img {
+            transform: scale(1.05);
+        }
+
+        /* Modal image */
+        .modal-image-container {
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="smooth-scroll text-gray-800" x-data="appData()">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-40 bg-premium-white/95 backdrop-blur-md shadow-sm transition-all duration-300" :class="{'shadow-md': scrolled}">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" @click="scrollTo('home')">
+                    <img src="https://i.ibb.co/H37kmzm/logo.jpg" alt="Efatá Studio Terapêutico" class="h-16 w-auto object-contain" onerror="this.style.display='none'">
+                    <div class="ml-3" x-show="$el.previousElementSibling.style.display === 'none'">
+                        <h1 class="text-2xl font-playfair font-bold text-gold-gradient">EFATÁ</h1>
+                        <p class="text-xs text-gold-dark tracking-widest">STUDIO TERAPÊUTICO</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-gold-primary transition-colors duration-300 font-medium">Início</a>
+                    <a href="#sobre" class="text-gray-700 hover:text-gold-primary transition-colors duration-300 font-medium">Sobre</a>
+                    <a href="#servicos" class="text-gray-700 hover:text-gold-primary transition-colors duration-300 font-medium">Serviços</a>
+                    <a href="#depoimentos" class="text-gray-700 hover:text-gold-primary transition-colors duration-300 font-medium">Depoimentos</a>
+                    <a href="#contato" class="text-gray-700 hover:text-gold-primary transition-colors duration-300 font-medium">Contato</a>
+                </nav>
+
+                <!-- CTA Button Desktop -->
+                <div class="hidden md:flex">
+                    <a href="https://wa.me/5547997552698" target="_blank" class="gold-gradient text-white px-6 py-2.5 rounded-full font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                        Agendar
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-700 hover:text-gold-primary focus:outline-none">
+                        <i data-lucide="menu" class="w-7 h-7" x-show="!mobileMenuOpen"></i>
+                        <i data-lucide="x" class="w-7 h-7" x-show="mobileMenuOpen" x-cloak></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-premium-white border-t border-champagne/30" x-cloak>
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" @click="mobileMenuOpen = false" class="block px-3 py-3 text-gray-700 hover:text-gold-primary hover:bg-champagne/20 rounded-lg font-medium">Início</a>
+                <a href="#sobre" @click="mobileMenuOpen = false" class="block px-3 py-3 text-gray-700 hover:text-gold-primary hover:bg-champagne/20 rounded-lg font-medium">Sobre</a>
+                <a href="#servicos" @click="mobileMenuOpen = false" class="block px-3 py-3 text-gray-700 hover:text-gold-primary hover:bg-champagne/20 rounded-lg font-medium">Serviços</a>
+                <a href="#depoimentos" @click="mobileMenuOpen = false" class="block px-3 py-3 text-gray-700 hover:text-gold-primary hover:bg-champagne/20 rounded-lg font-medium">Depoimentos</a>
+                <a href="#contato" @click="mobileMenuOpen = false" class="block px-3 py-3 text-gray-700 hover:text-gold-primary hover:bg-champagne/20 rounded-lg font-medium">Contato</a>
+                <a href="https://wa.me/5547997552698" target="_blank" class="block mt-4 gold-gradient text-white text-center px-6 py-3 rounded-full font-medium">
+                    Agendar Consulta
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-champagne/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-gold-light/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div class="inline-block mb-4 px-4 py-1.5 bg-champagne/30 rounded-full">
+                        <span class="text-gold-dark font-medium text-sm tracking-wide">ESTÉTICA E MASSOTERAPIA EM NAVEGANTES</span>
+                    </div>
+                    <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                        Recuperação e <br>
+                        <span class="text-gold-gradient">Bem-Estar</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Profissional especializada em terapias corporais e cuidados integrados, com atuação voltada para terapias manuais.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://wa.me/5547997552698?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20no%20Efatá%20Estética" target="_blank" class="gold-gradient text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="calendar" class="w-5 h-5"></i>
+                            Agendar Agora
+                        </a>
+                        <a href="#servicos" class="border-2 border-gold-primary text-gold-dark px-8 py-4 rounded-full font-semibold text-lg hover:bg-gold-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                            Conhecer Serviços
+                            <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://i.ibb.co/6qfGWcg/perfil.jpg" alt="Tratamento Estético" class="w-full h-auto object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-[90px] -left-6 bg-white p-6 rounded-2xl shadow-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="gold-gradient p-3 rounded-full">
+                                <i data-lucide="award" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-gray-900">500+</p>
+                                <p class="text-sm text-gray-600">Clientes Satisfeitas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://i.ibb.co/pBqNCwTy/cuidado.jpg" alt="Spa" class="rounded-2xl shadow-lg w-full h-64 object-cover">
+                        <img src="https://i.ibb.co/vxSQNCc0/excelencia.jpg" alt="Tratamento" class="rounded-2xl shadow-lg w-full h-64 object-cover mt-8">
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <span class="text-gold-primary font-semibold tracking-wide uppercase text-sm">Sobre Nós</span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2 mb-6">Cuidado e Excelência em Cada Tratamento</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        No Efatá Studio Terapêutico, combinamos técnica apurada com atendimento humanizado. Nossa missão é proporcionar bem-estar, autoestima e qualidade de vida através de tratamentos estéticos personalizados.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Especializada em pós-operatório de cirurgias plásticas, oferecemos uma recuperação mais rápida, segura e confortável, com técnicas avançadas de drenagem linfática e cuidados específicos para cada tipo de procedimento.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start gap-3">
+                            <div class="gold-gradient p-2 rounded-lg flex-shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Profissional Qualificada</h4>
+                                <p class="text-sm text-gray-600">Formação especializada</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="gold-gradient p-2 rounded-lg flex-shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Atendimento Personalizado</h4>
+                                <p class="text-sm text-gray-600">Para cada necessidade</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="gold-gradient p-2 rounded-lg flex-shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Ambiente Acolhedor</h4>
+                                <p class="text-sm text-gray-600">Conforto e privacidade</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="gold-gradient p-2 rounded-lg flex-shrink-0">
+                                <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Técnicas Avançadas</h4>
+                                <p class="text-sm text-gray-600">Resultados comprovados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-20 bg-premium-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-gold-primary font-semibold tracking-wide uppercase text-sm">Nossos Serviços</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2 mb-4">Planos de Cuidado Individualizados</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Atendimentos mediante agendamento, com duração média de 1h a 1h30, realizados de forma totalmente exclusiva e dedicada. Cada sessão é conduzida com tempo adequado para cuidado individualizado, sem atendimentos apressados ou sobrecarga de agenda, garantindo mais atenção, conforto e qualidade em cada etapa do tratamento.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="service in services" :key="service.id">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift group cursor-pointer" @click="openModal(service)">
+                        <div class="relative h-64 service-image-container">
+                            <img :src="service.image" :alt="service.name">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <p class="text-sm">Clique para ver imagem completa</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2" x-text="service.name"></h3>
+                            <p class="text-gray-600 text-sm mb-4" x-text="service.description"></p>
+                            <button @click.stop="bookService(service.name)" class="w-full gold-gradient text-white py-3 rounded-full font-medium hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                                Agendar Este Serviço
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="depoimentos" class="py-20 bg-gradient-to-br from-champagne/20 to-premium-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-gold-primary font-semibold tracking-wide uppercase text-sm">Depoimentos</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2 mb-4">O Que Nossas Clientes Dizem</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <template x-for="testimonial in testimonials" :key="testimonial.id">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg hover-lift">
+                        <div class="flex items-center gap-1 mb-4">
+                            <template x-for="i in 5">
+                                <i data-lucide="star" class="w-5 h-5 text-gold-primary fill-current"></i>
+                            </template>
+                        </div>
+                        <p class="text-gray-600 mb-6 italic leading-relaxed" x-text="testimonial.text"></p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center text-white font-bold text-lg" x-text="testimonial.initials"></div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900" x-text="testimonial.name"></h4>
+                                <p class="text-sm text-gray-500">Cliente Efatá</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="contato" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div>
+                    <span class="text-gold-primary font-semibold tracking-wide uppercase text-sm">Localização</span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2 mb-6">Onde Estamos</h2>
+                    <p class="text-gray-600 mb-8">Visite nosso studio em Navegantes e descubra um espaço pensado para seu bem-estar e conforto.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="gold-gradient p-3 rounded-full flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Endereço</h4>
+                                <p class="text-gray-600">Beco Pedro Paulo Couto, 132 - Centro<br>Navegantes - SC</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="gold-gradient p-3 rounded-full flex-shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Telefone/WhatsApp</h4>
+                                <p class="text-gray-600">(47) 99755-2698</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="gold-gradient p-3 rounded-full flex-shrink-0">
+                                <i data-lucide="instagram" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Instagram</h4>
+                                <a href="https://www.instagram.com/efata_studioterapeutico_" target="_blank" class="text-gold-primary hover:text-gold-dark transition-colors">@efata_studioterapeutico_</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                        <a href="https://www.google.com/maps?q=Avenida+Beira+Mar,+1200+Navegantes" target="_blank" class="gold-gradient text-white px-6 py-3 rounded-full font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="navigation" class="w-5 h-5"></i>
+                            Como Chegar
+                        </a>
+                        <a href="https://wa.me/5547997552698" target="_blank" class="border-2 border-gold-primary text-gold-dark px-6 py-3 rounded-full font-medium hover:bg-gold-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            Falar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-champagne/20 rounded-2xl p-8 flex items-center justify-center min-h-[400px]">
+                    <div class="text-center">
+                        <div class="gold-gradient w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="map" class="w-10 h-10 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">Mapa Interativo</h3>
+                        <p class="text-gray-600 mb-6">Clique no botão abaixo para ver nossa localização no Google Maps</p>
+                        <a href="https://www.google.com/maps/place/Beco+Pedro+Paulo+Couto,+132+-+Centro,+Navegantes+-+SC" target="_blank" class="inline-flex items-center gap-2 text-gold-primary font-semibold hover:text-gold-dark transition-colors">
+                            Abrir no Google Maps
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-playfair font-bold mb-4">EFATÁ</h3>
+                    <p class="text-gray-400">Studio Terapêutico especializado em estética e bem-estar. Cuidando de você com excelência e carinho.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-gold-primary transition-colors">Início</a></li>
+                        <li><a href="#sobre" class="text-gray-400 hover:text-gold-primary transition-colors">Sobre</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-gold-primary transition-colors">Serviços</a></li>
+                        <li><a href="#depoimentos" class="text-gray-400 hover:text-gold-primary transition-colors">Depoimentos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contato</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>(47) 99755-2698</li>
+                        <li>Beco Pedro Paulo Couto, 132</li>
+                        <li>Navegantes - SC</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400 text-sm">&copy; 2026 Efatá Studio Terapêutico. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-champagne/30 px-4 py-2 z-40 safe-area-pb">
+        <div class="flex justify-around items-center">
+            <a href="#home" class="flex flex-col items-center p-2 text-gold-primary">
+                <i data-lucide="home" class="w-6 h-6"></i>
+                <span class="text-xs mt-1">Início</span>
+            </a>
+            <a href="#servicos" class="flex flex-col items-center p-2 text-gray-600 hover:text-gold-primary transition-colors">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+                <span class="text-xs mt-1">Serviços</span>
+            </a>
+            <a href="https://wa.me/5547997552698" target="_blank" class="flex flex-col items-center p-2 gold-gradient rounded-full -mt-8 shadow-lg">
+                <div class="bg-white rounded-full p-2">
+                    <i data-lucide="calendar" class="w-6 h-6 text-gold-primary"></i>
+                </div>
+                <span class="text-xs mt-1 text-gold-dark font-medium">Agendar</span>
+            </a>
+            <a href="#depoimentos" class="flex flex-col items-center p-2 text-gray-600 hover:text-gold-primary transition-colors">
+                <i data-lucide="message-square" class="w-6 h-6"></i>
+                <span class="text-xs mt-1">Depoimentos</span>
+            </a>
+            <a href="#contato" class="flex flex-col items-center p-2 text-gray-600 hover:text-gold-primary transition-colors">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                <span class="text-xs mt-1">Local</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Service Modal (Lightbox) -->
+    <div x-show="modalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div x-show="modalOpen" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-900/95 backdrop-blur-sm transition-opacity" @click="closeModal()"></div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div x-show="modalOpen" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full">
+                <div class="relative">
+                    <button @click="closeModal()" class="absolute top-4 right-4 z-10 bg-white/90 rounded-full p-2 hover:bg-white transition-colors shadow-lg">
+                        <i data-lucide="x" class="w-6 h-6 text-gray-700"></i>
+                    </button>
+                    
+                    <div class="modal-image-container h-[60vh] sm:h-[70vh]">
+                        <img :src="currentService.image" :alt="currentService.name">
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 sm:p-8">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2" x-text="currentService.name"></h3>
+                        <p class="text-gray-200" x-text="currentService.description"></p>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:p-8 bg-white">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button @click="bookService(currentService.name); closeModal()" class="flex-1 gold-gradient text-white py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="calendar" class="w-5 h-5"></i>
+                            Agendar Este Serviço
+                        </button>
+                        <a :href="'https://wa.me/5547997552698?text=' + encodeURIComponent('Olá! Gostaria de saber mais sobre ' + currentService.name)" target="_blank" class="flex-1 border-2 border-gold-primary text-gold-dark py-4 rounded-full font-semibold hover:bg-gold-primary hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            Tirar Dúvidas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        function appData() {
+            return {
+                scrolled: false,
+                mobileMenuOpen: false,
+                modalOpen: false,
+                currentService: {},
+                services: [
+                    {
+                        id: 1,
+                        name: 'Pós-Operatório de Abdominoplastia e Mamoplastia',
+                        description: 'Cuidados especializados para uma recuperação segura e confortável após cirurgias plásticas.',
+                        image: 'https://i.ibb.co/m55N33Yf/foto1.jpg'
+                    },
+                    {
+                        id: 2,
+                        name: 'Drenagem Linfática',
+                        description: 'Indicada para tratamento de lipedema, pré e pós-parto, retenção de líquidos e edemas no dia a dia. Contribui para a manutenção da saúde do sistema linfático, auxiliando no equilíbrio corporal e no suporte ao sistema imunológico.',
+                        image: 'https://i.ibb.co/pjcjgnQd/foto2.jpg'
+                    },
+                    {
+                        id: 3,
+                        name: 'Tratamentos faciais',
+                        description: 'Procedimentos voltados à saúde e renovação da pele, com foco em limpeza profunda, hidratação e estímulo ao rejuvenescimento. Indicados para acne, oleosidade, flacidez e linhas de expressão, promovendo uma pele mais equilibrada, uniforme e com aspecto saudável.',
+                        image: 'https://i.ibb.co/5WwnMFV3/foto3.jpg'
+                    },
+                    {
+                        id: 4,
+                        name: 'Detox Corporal',
+                        description: 'Protocolo completo para eliminação de toxinas, Minimizar o inchaço e modelar a silhueta.',
+                        image: 'https://i.ibb.co/Zz3GgkX0/foto4.jpg'
+                    },
+                    {
+                        id: 5,
+                        name: 'Tratamento Corporal',
+                        description: 'Técnicas voltadas à melhora do contorno corporal, redução de medidas, aumento do tônus muscular e fortalecimento da musculatura, promovendo melhor definição e equilíbrio corporal.',
+                        image: 'https://i.ibb.co/BVD5nXm7/foto5.jpg'
+                    },
+                    {
+                        id: 6,
+                        name: 'Pós-Operatório Cervicofacial',
+                        description: 'Cuidados específicos para recuperação de cirurgias faciais e de pescoço.',
+                        image: 'https://i.ibb.co/YVFTqjQ/foto6.jpg'
+                    },
+                    {
+                        id: 7,
+                        name: 'Massagem Terapêutica/Relaxante',
+                        description: 'Indicada como suporte em condições crônicas, como fibromialgia, ansiedade, depressão, insônia e alterações posturais como escoliose e cifose. Contribui para o relaxamento muscular, redução de tensões e melhora do bem-estar físico e emocional.',
+                        image: 'https://i.ibb.co/Z6jd8NSc/foto7.jpg'
+                    },
+                    {
+                        id: 8,
+                        name: 'Tratamento de Lipedema',
+                        description: 'Tratamento de Lipedema com abordagem terapêutica voltada para o alívio dos sintomas, redução do desconforto e melhora da qualidade de vida. As técnicas auxiliam na diminuição do inchaço, sensibilidade e sensação de peso nas pernas, promovendo mais leveza, conforto e mobilidade no dia a dia. O atendimento é individualizado, respeitando o estágio e as necessidades de cada paciente.',
+                        image: 'https://i.ibb.co/kVRJ5wxW/foto8.jpg'
+                    },
+                    {
+                        id: 9,
+                        name: 'Depilação a Cera',
+                        description: 'Depilação profissional com cera de alta qualidade para todos os tipos de pele.',
+                        image: 'https://i.ibb.co/cXkqG9rh/foto9.jpg'
+                    },
+                    {
+                        id: 10,
+                        name: 'Liberação Miofascial e Ventosaterapia',
+                        description: 'Técnica manual que libera tensões musculares e da fáscia, promovendo alívio da dor e melhor mobilidade.',
+                        image: 'https://i.ibb.co/spckmb0h/foto10.jpg'
+                    }
+                ],
+                testimonials: [
+                    {
+                        id: 1,
+                        name: 'Daniela Santos',
+                        initials: 'DS',
+                        text: 'Experiência incrível! O pós-operatório da minha abdominoplastia foi muito mais tranquilo graças aos cuidados do Efatá. Super recomendo!'
+                    },
+                    {
+                        id: 2,
+                        name: 'Marcela Cordeiro',
+                        initials: 'MC',
+                        text: 'Profissional extremamente qualificada e atenciosa. A drenagem linfática fez toda diferença na minha recuperação. Ambiente maravilhoso!'
+                    },
+                    {
+                        id: 3,
+                        name: 'Isabela Lima',
+                        initials: 'IL',
+                        text: 'Melhor studio de estética de Navegantes! Fiz limpeza de pele e fiquei encantada com o resultado. Minha pele nunca esteve tão bonita.'
+                    }
+                ],
+                scrollTo(section) {
+                    document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+                    this.mobileMenuOpen = false;
+                },
+                openModal(service) {
+                    this.currentService = service;
+                    this.modalOpen = true;
+                    document.body.style.overflow = 'hidden';
+                },
+                closeModal() {
+                    this.modalOpen = false;
+                    document.body.style.overflow = '';
+                },
+                bookService(serviceName) {
+                    const message = `Olá! Tenho interesse em ${serviceName} no Efatá Estética. Pode me ajudar?`;
+                    const whatsappUrl = `https://wa.me/5547997552698?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                }
+            }
+        }
+
+        // Scroll listener
+        window.addEventListener('scroll', () => {
+            const app = document.querySelector('[x-data]');
+            if (app && app.__x) {
+                app.__x.$data.scrolled = window.scrollY > 50;
+            }
+        });
+
+        // Reinitialize icons when Alpine updates
+        document.addEventListener('alpine:initialized', () => {
+            setTimeout(() => lucide.createIcons(), 100);
+        });
+    </script>
+</body>
+</html>
